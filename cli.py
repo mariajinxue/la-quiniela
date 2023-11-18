@@ -78,13 +78,17 @@ if __name__ == "__main__":
         format="%(asctime)s - [%(levelname)s] - %(message)s",
         level=logging.INFO,
     )
+    features = ['rank_home', 'GD_home', "W_home", 
+                "Pts_home", 'rank_away', 'GD_away', 
+                "W_away", "Pts_away"]
+    target = "result"
     if args.task == "train":
         logging.info(f"Training LaQuiniela model with seasons {args.training_seasons}")
         model = models.QuinielaModel()
         training_data = io.df_train(args.training_seasons)
         
-        X_train = training_data[['rank_home', 'GD_home', "W_home", "Pts_home", 'rank_away', 'GD_away', "W_away", "Pts_away"]]  
-        y_train = training_data['result']  
+        X_train = training_data[features]  
+        y_train = training_data[target]  
         
         model.train(X_train, y_train)
         model.save(settings.MODELS_PATH / args.model_name)
@@ -94,9 +98,9 @@ if __name__ == "__main__":
         model = models.QuinielaModel.load(settings.MODELS_PATH / args.model_name)
         predict_data = io.df_test(args.season, args.division, args.matchday)
         
-        X_test = predict_data[['rank_home', 'GD_home', "W_home", "Pts_home", 'rank_away', 'GD_away', "W_away", "Pts_away"]]  
+        X_test = predict_data[features]  
         predict_data["pred"] = model.predict(X_test)
-        accuracy = accuracy_score(predict_data["result"], predict_data["pred"])
+        accuracy = accuracy_score(predict_data[target], predict_data["pred"])
         
         print(f"Matchday {args.matchday} - LaLiga - Division {args.division} - Season {args.season}")
         print(f'{"Home team":^30s}    {"Away Team":^30s}     {"Prediction":^10}  {"Result":^10}')
