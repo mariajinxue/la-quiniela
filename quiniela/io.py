@@ -20,10 +20,10 @@ def load_matchday_laliga(season, division, matchday):
         raise ValueError("There is no matchday data for the values given")
     return data
 
-def load_matchday_clasification(season, division, matchday):
+def load_matchday_classification(season, division, matchday):
     with sqlite3.connect(DATABASE_PATH_1) as conn:
         data = pd.read_sql(f"""
-            SELECT * FROM clasification
+            SELECT * FROM classification
                 WHERE season = '{season}'
                   AND division = {division}
                   AND matchday = {matchday}
@@ -45,13 +45,13 @@ def load_historical_data_laliga(seasons):
         raise ValueError(f"No data for seasons {seasons}")
     return data
 
-def load_historical_data_clasification(seasons):
+def load_historical_data_classification(seasons):
     with sqlite3.connect(DATABASE_PATH_1) as conn:
         if seasons == "all":
-            data = pd.read_sql("SELECT * FROM clasification", conn)
+            data = pd.read_sql("SELECT * FROM classification", conn)
         else:
             data = pd.read_sql(f"""
-                SELECT * FROM clasification
+                SELECT * FROM classification
                     WHERE season IN {tuple(seasons)}
             """, conn)
     if data.empty:
@@ -94,7 +94,7 @@ def merge_and_clean_visitor(df, classification):
     return df2
 
 def df_train(seasons):   
-    classification = load_historical_data_clasification(seasons)
+    classification = load_historical_data_classification(seasons)
     matches = load_historical_data_laliga(seasons)
     classification.dropna(subset="rank", inplace=True)
     matches = add_result(matches)
@@ -104,7 +104,7 @@ def df_train(seasons):
     return df_train
 
 def df_test(season, division, matchday):
-    classification = load_matchday_clasification(season, division, matchday)
+    classification = load_matchday_classification(season, division, matchday)
     matches =load_matchday_laliga(season, division, matchday)
     classification.dropna(subset="rank", inplace=True)
     matches = add_result(matches)
