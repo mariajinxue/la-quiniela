@@ -90,7 +90,7 @@ if __name__ == "__main__":
         X_train = training_data[features]  
         y_train = training_data[target]  
         
-        model.train(X_train, y_train)
+        model.train(X_train, y_train, args.training_seasons)
         model.save(settings.MODELS_PATH / args.model_name)
         print(f"Model succesfully trained and saved in {settings.MODELS_PATH / args.model_name}")
     if args.task == "predict":
