@@ -81,7 +81,7 @@ The data is provided as two SQLite3 databases that is inside the ZIP file.
 The database ```laliga.sqlite``` contains the following tables:
 
    * ```Matches```: All the matches played between seasons 1928-1929 and 2021-2022 with the date and score. Columns are ```season```,	```division```, ```matchday```, ```date```, ```time```, ```home_team```, ```away_team```, ```score```. Have in mind there is no time information for many of them and also that it contains matches still not played from current season.
-   * ```Predictions```: The table for you to insert your predictions. It is initially empty. Columns are ```season```, ```division```, ```matchday```, ````date```,```time```,```home_team```, ```away_team```,```score```, ```pred```.
+   * ```Predictions```: The table for you to insert your predictions. It is initially empty. Columns are ```season```, ```division```, ```matchday```, ```date```,```time```,```home_team```, ```away_team```,```score```, ```pred```.
 
 The data source is [Transfermarkt](https://www.transfermarkt.com/), and it was scraped using Python's library BeautifulSoup4.
 
