@@ -1,6 +1,6 @@
 ## LaQuiniela of LaLiga
 
-Team members: María Jinxue García-Pantaleón Tarifa 1689933 - Juan Bendito Barrios - Antonio Pereira De la Huerga 1654167
+Team members: María Jinxue García-Pantaleón Tarifa 1689933 - Juan Bendito Barrio 1691392 - Antonio Pereira De la Huerga 1654167
 
 This repo contains the skeleton for you to build your first ML project. Use the data in ```laliga.sqlite``` to build a ML model that predicts the outcome of a matchday in LaLiga (Spanish Football League).
 
